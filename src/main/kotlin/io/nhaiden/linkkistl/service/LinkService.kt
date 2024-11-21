@@ -36,8 +36,6 @@ class LinkService(@Autowired val linkRepository: LinkRepository, val userService
         return linkRepository.countLinks(userId)
     }
 
-    fun deleteLinkById(id: UUID) = linkRepository.deleteById(id)
-
     fun getLinkById(id: UUID): SavedLinkResponse {
         val link: SavedLink = linkRepository.findById(id).orElseThrow()
 
