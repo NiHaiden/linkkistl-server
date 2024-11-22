@@ -32,6 +32,12 @@ open class SavedLink(
     open var id: UUID? = null
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     open var user: ExternalUser? = null
+
+    @ManyToMany(mappedBy = "savedLinks")
+    open var linkCollections: MutableSet<LinkCollection> = mutableSetOf()
+
+    @ManyToMany(mappedBy = "savedLinks")
+    open var linkTags: MutableSet<LinkTag> = mutableSetOf()
 }

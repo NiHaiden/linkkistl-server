@@ -2,6 +2,7 @@ package io.nhaiden.linkkistl.rest
 
 import io.nhaiden.linkkistl.dto.LinkSaveRequest
 import io.nhaiden.linkkistl.dto.SavedLinkResponse
+import io.nhaiden.linkkistl.service.CollectionService
 import io.nhaiden.linkkistl.service.LinkService
 import io.nhaiden.linkkistl.util.getUserId
 import org.springframework.http.HttpStatus
@@ -12,6 +13,7 @@ import java.util.*
 @RequestMapping("/api/v1/links")
 class LinkController(
     private val linkService: LinkService,
+    private val collectionService: CollectionService,
 ) {
     @GetMapping
     fun getAllLinks(): List<SavedLinkResponse> {
@@ -34,5 +36,11 @@ class LinkController(
     @GetMapping("/count")
     fun countLinks(): Long {
         return linkService.countLinks()
+    }
+
+    @PostMapping("/{id}/collection/{collectionId}")
+    @ResponseStatus(code = HttpStatus.CREATED, reason = "Link was added to collection!")
+    fun addLinkToCollection(@PathVariable id: String, @PathVariable collectionId: String) {
+        collectionService.addLinkToCollection(linkId = id, collectionId = collectionId)
     }
 }
