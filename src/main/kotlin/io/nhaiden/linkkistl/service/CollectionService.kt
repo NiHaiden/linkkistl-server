@@ -10,6 +10,7 @@ import io.nhaiden.linkkistl.mapper.LinkCollectionMapper
 import io.nhaiden.linkkistl.model.ExternalUser
 import io.nhaiden.linkkistl.model.LinkCollection
 import io.nhaiden.linkkistl.model.SavedLink
+import io.nhaiden.linkkistl.util.getUserId
 import org.springframework.stereotype.Service
 import java.util.*
 
@@ -54,5 +55,16 @@ class CollectionService(
 
         linkCollectionRepository.save(linkCollection)
         linkRepository.save(linkToBeAdded)
+    }
+
+    /**
+     * Counts the number of collections associated with the currently authenticated user.
+     *
+     * @return The total count of collections belonging to the user.
+     * @throws UnauthorizedException if the user is not authenticated.
+     */
+    fun countCollections(): Long {
+        val userId = getUserId()
+        return linkCollectionRepository.countCollections(userId)
     }
 }

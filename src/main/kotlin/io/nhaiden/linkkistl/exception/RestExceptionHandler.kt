@@ -25,4 +25,9 @@ class RestExceptionHandler {
         return ResponseEntity.badRequest().body("Please check your request data is correct, some fields might be missing or are incorrect.")
     }
 
+    @ExceptionHandler(UnauthorizedException::class)
+    fun handleUnauthorizedException(ex: UnauthorizedException): ResponseEntity<String> {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized error.")
+    }
+
 }

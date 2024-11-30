@@ -28,4 +28,9 @@ class CollectionController(private val collectionService: CollectionService) {
         val userId = getUserId()
         collectionService.createCollection(collection, userId)
     }
+
+    @GetMapping("/count")
+    fun getCount(): Long {
+        collectionService.countCollections();
+    }
 }
