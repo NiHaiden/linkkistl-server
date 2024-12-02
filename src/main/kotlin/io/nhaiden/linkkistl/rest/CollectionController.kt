@@ -31,6 +31,6 @@ class CollectionController(private val collectionService: CollectionService) {
 
     @GetMapping("/count")
     fun getCount(): Long {
-        collectionService.countCollections();
+        return collectionService.countCollections();
     }
 }

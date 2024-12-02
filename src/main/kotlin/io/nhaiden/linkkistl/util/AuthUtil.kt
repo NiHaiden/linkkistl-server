@@ -1,5 +1,6 @@
 package io.nhaiden.linkkistl.util
 
+import io.nhaiden.linkkistl.exception.UnauthorizedException
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
 
@@ -11,7 +12,7 @@ import org.springframework.security.oauth2.jwt.Jwt
  * @throws UnauthorizedAccessException if there is no active authentication.
  */
 fun getUserId(): String {
-    val authentication = SecurityContextHolder.getContext().authentication ?: throw UnauthorizedAccessException("User is not authenticated")
+    val authentication = SecurityContextHolder.getContext().authentication ?: throw UnauthorizedException("User is not authenticated")
     val jwt = authentication.principal as Jwt
     return jwt.getClaim("sub")
 }
