@@ -37,7 +37,8 @@ class LinkService(@Autowired val linkRepository: LinkRepository, val userService
     }
 
     fun getLinkById(id: UUID): SavedLinkResponse {
-        val link: SavedLink = linkRepository.findById(id).orElseThrow()
+        val userId = getUserId()
+        val link: SavedLink = linkRepository.findByIdAndUserId(userId=userId, id=id).orElseThrow()
 
         return SavedLinkResponse(linkUrl = link.linkUrl, title = link.title, description = link.description, linkId = link.id, userId = link.user?.id)
     }
