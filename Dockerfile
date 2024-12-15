@@ -1,4 +1,4 @@
-FROM gradle:8.10-jdk17-jammy AS build
+FROM gradle:8.10-jdk21-jammy AS build
 RUN mkdir -p /linkkistl
 COPY --chown=gradle:gradle . /linkkistl/src
 WORKDIR /linkkistl/src
