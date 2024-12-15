@@ -1,4 +1,4 @@
-name: "Build Raven Backend and push to container registry"
+name: "Build Linkkistl Server and push to registry"
 
 on:
   push:

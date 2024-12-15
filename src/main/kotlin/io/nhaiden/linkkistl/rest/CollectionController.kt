@@ -13,7 +13,6 @@ class CollectionController(private val collectionService: CollectionService) {
     @GetMapping
     fun getAllCollections(): List<LinkCollectionResponse> {
         val userId = getUserId()
-
         return collectionService.getAllCollections(userId)
     }
 
@@ -31,6 +30,6 @@ class CollectionController(private val collectionService: CollectionService) {
 
     @GetMapping("/count")
     fun getCount(): Long {
-        collectionService.countCollections();
+        return collectionService.countCollections();
     }
 }

@@ -8,5 +8,4 @@ import java.io.Serializable
 data class LinkSaveRequest(
     val linkUrl: String,
     val title: String,
-    val description: String,
 ) : Serializable

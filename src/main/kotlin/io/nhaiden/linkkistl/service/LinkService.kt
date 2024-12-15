@@ -13,24 +13,26 @@ import java.util.*
 @Service
 class LinkService(@Autowired val linkRepository: LinkRepository, val userService: UserService) {
 
-    fun getAllLinks(userId: String): List<SavedLinkResponse> = linkRepository.findAllByUser(userId).map { savedLink: SavedLink? ->
-        SavedLinkResponse(
-            linkId = savedLink?.id,
-            title = savedLink?.title,
-            description = savedLink?.description,
-            linkUrl = savedLink?.linkUrl,
-            userId = savedLink?.user?.id
-        )
-    }
+    fun getAllLinks(userId: String): List<SavedLinkResponse> =
+        linkRepository.findAllByUser(userId).map { savedLink: SavedLink? ->
+            SavedLinkResponse(
+                linkId = savedLink?.id,
+                title = savedLink?.title,
+                description = savedLink?.description,
+                linkUrl = savedLink?.linkUrl,
+                userId = savedLink?.user?.id
+            )
+        }
 
     fun saveLink(link: LinkSaveRequest) {
         val newSavedLink =
-            SavedLink(linkUrl = link.linkUrl, title = link.title, description = link.description, savedAt = Date())
+            SavedLink(linkUrl = link.linkUrl, title = link.title, savedAt = Date())
         val userId = getUserId()
         val user: ExternalUser = userService.findUserById(userId)!!
         newSavedLink.user = user
         linkRepository.save(newSavedLink)
     }
+
     fun countLinks(): Long {
         val userId = getUserId()
         return linkRepository.countLinks(userId)
@@ -39,8 +41,12 @@ class LinkService(@Autowired val linkRepository: LinkRepository, val userService
     fun getLinkById(id: UUID): SavedLinkResponse {
         val link: SavedLink = linkRepository.findById(id).orElseThrow()
 
-        return SavedLinkResponse(linkUrl = link.linkUrl, title = link.title, description = link.description, linkId = link.id, userId = link.user?.id)
+        return SavedLinkResponse(
+            linkUrl = link.linkUrl,
+            title = link.title,
+            description = link.description,
+            linkId = link.id,
+            userId = link.user?.id
+        )
     }
-
-
 }
