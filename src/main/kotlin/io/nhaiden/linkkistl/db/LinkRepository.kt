@@ -13,4 +13,7 @@ interface LinkRepository : JpaRepository<SavedLink, UUID>, JpaSpecificationExecu
 
     @Query("SELECT l FROM SavedLink l WHERE l.user.id = :userId")
     fun findAllByUser(@Param("userId") userId: String): List<SavedLink>
+
+    fun findByIdAndUserId(id: UUID, userId: String): Optional<SavedLink>
+
 }
