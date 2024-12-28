@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class RestExceptionHandler {
     @ExceptionHandler(Exception::class)
     fun handleException(ex: Exception): ResponseEntity<String> {
+        ex.printStackTrace()
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body("There was an error trying to process the request.")
     }

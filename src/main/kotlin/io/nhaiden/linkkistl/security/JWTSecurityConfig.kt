@@ -15,6 +15,9 @@ class JWTSecurityConfig(@Value("\${jwt.certs}") private val jwtCertUrl: String) 
     fun filterChain(httpSecurity: HttpSecurity): SecurityFilterChain {
         httpSecurity {
             authorizeRequests {
+                authorize("/v3/**", permitAll)
+                authorize("/swagger-ui/**", permitAll)
+                authorize("/swagger-ui.html", permitAll)
                 authorize(anyRequest, authenticated)
             }
             oauth2ResourceServer {
